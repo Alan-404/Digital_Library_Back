@@ -60,7 +60,6 @@ class AccountController {
     //change password
     async changePassword(req, res){
         const {oldPassword, newPassword} = req.body;
-
         if (!newPassword || !oldPassword)
             return res.json({success: false, message: 'Missing information'});
 
@@ -123,7 +122,7 @@ class AccountController {
             if (!account)
                 return res.json({message: 'Invalid account'});
             const user = await userModel.findById(account.userId);
-            return res.json({user});
+            return res.json({user, username: account.username});
         }
         catch(error){
             return res.json({message: error.message})
