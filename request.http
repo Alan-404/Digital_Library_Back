@@ -1,0 +1,237 @@
+POST http://localhost:5000/user/insert
+Content-Type: application/json
+
+{
+    "firstName": "Nguyễn",
+    "middleName": "Đức",
+    "lastName": "Tríz",
+    "phone": "0938671192",
+    "bDate": "2001-04-04",
+    "username": "tri",
+    "password": "123",
+    "email": "nguyenductri04042001@gmail.com",
+    "role":false
+}
+
+###
+POST http://localhost:5000/account/login
+Content-Type: application/json
+
+{
+    "username": "tri",
+    "password": "123"
+}
+
+###
+GET http://localhost:5000/account/getInfor
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2MzU2ODk2OTN9.OnE6wgGjWdotaTpLNiedcMHsmviT1MN4nXy3DCNjQZk
+
+###
+POST http://localhost:5000/account/change
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTczZmZhYmE5MjNjZWI4MzVmMzVlM2UiLCJpYXQiOjE2MzQ5OTQwMjd9.T7lehHkhui3uLJKhaDicDeWjF7R_2vcxBqFgflOL_rA
+
+{
+    "oldPassword": "abc",
+    "newPassword": "1"
+}
+
+###
+POST http://localhost:5000/category/insert
+Content-Type: application/json
+
+{
+    "name":"Tiểu Thuyết",
+    "imageLink": "https://i.pinimg.com/originals/34/90/2f/34902fc14c13beeaba1395610bc47590.jpg"
+}
+
+###
+POST http://localhost:5000/author/insert
+Content-Type: application/json
+
+{
+    "name":"Rosie Nguyễn",
+    "description": "test",
+    "imageLink": "https://images.gr-assets.com/authors/1430273524p8/13852796.jpg"
+}
+
+###
+POST http://localhost:5000/book/insert
+Content-Type: application/json
+
+{
+    "name":"Đi Đâu Cũng Nhớ Sài Gòn Và Em",
+    "author":"Anh Khang",
+    "imageLink": "https://salt.tikicdn.com/ts/product/cd/55/a6/5196412c5585c1149549d6eb896abd51.jpg",
+    "linkPdf": "Đi Đâu Cũng Nhớ Sài Gòn Và Em",
+    "category": "Truyện Ngắn",
+    "description": "Tôi thấy hoa vàng trên cỏ xanh là một tiểu thuyết dành cho thanh thiếu niên của nhà văn Nguyễn Nhật Ánh, xuất bản lần đầu tại Việt Nam vào ngày 9 tháng 12 năm 2010 bởi Nhà xuất bản Trẻ, với phần tranh minh họa do Đỗ Hoàng Tường thực hiện. Đây là một trong các truyện dài của Nguyễn Nhật Ánh, ra đời sau Đảo mộng mơ và trước Lá nằm trong lá"
+}
+
+###
+POST http://localhost:5000/ad/insert
+Content-Type: application/json
+
+{
+    "imageLink":""
+}
+
+###
+GET http://localhost:5000/ad
+Content-Type: application/json
+
+###
+GET http://localhost:5000/author/getAuthor/617e8b929b466792c8f67c62
+Content-Type: application/json
+
+
+###
+POST http://localhost:5000/user/mail
+Content-Type: application/json
+
+{
+    "email": "19110302@student.hcmute.edu.vn"
+}
+
+###
+POST http://localhost:5000/book/getBooks
+Content-Type: application/json
+
+{
+    "categoryName": "novel"
+}
+
+###
+GET http://localhost:5000/book/getBooks?categoryId=617964c137d0fbb2e9eee342
+Content-Type: application/json
+
+###
+GET http://localhost:5000/book/infoBook?id=617d3f547c21f4482d3ca7e5
+Content-Type: application/json
+
+###
+GET http://localhost:5000/book/infoBook?id=617d3f547c21f4482d3ca7e5
+Content-Type: application/json
+
+
+###
+GET http://localhost:5000/category
+Content-Type: application/json
+
+###
+GET http://localhost:5000/book/allInfoCategories
+Content-Type: application/json
+
+
+###
+GET http://localhost:5000/author/getAuthor?authorId=617961d82840693e4b231ef7
+Content-Type: application/json
+
+###
+GET http://localhost:5000/book/getBooksAuthor?authorId=617e8b929b466792c8f67c62
+Content-Type: application/json
+
+###
+GET http://localhost:5000/account/getRole
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2MzU2ODk2OTN9.OnE6wgGjWdotaTpLNiedcMHsmviT1MN4nXy3DCNjQZk
+
+
+###
+POST http://localhost:5000/news/insert
+Content-Type: application/json
+
+{
+    "title": "ĐI SỰ KIỆN- NHẬN QUÀ HAY: KÍ TẶNG SÁCH CÔ GÁI ĐẾN TỪ HÔM QUA",
+    "thumnail": "https://www.nxbtre.com.vn/Images/News/nxbtre_full_21102017_021046.jpg",
+    "introduction": "Bén duyên với sách từ khi còn bé, nhà văn Anh Khang cho rằng mỗi một quyển sách dù hay hay dở đều là mối duyên đẹp đẽ của mình.",
+    "frame":[
+        {
+            "content": "adfdsfds",
+            "media": "https://vnn-imgs-f.vgcloud.vn/2020/08/28/14/nha-van-anh-khang-moi-mot-cuon-sach-deu-la-mot-moi-duyen-dep-de-2.jpg"
+        },
+        {
+            "content": "dfsdfsdf3e",
+            "media": "https://vnn-imgs-f.vgcloud.vn/2020/08/28/15/nha-van-anh-khang-moi-mot-cuon-sach-deu-la-mot-moi-duyen-dep-de.jpg"
+        }
+    ]
+}
+
+###
+GET http://localhost:5000/news/getNewsById?newsId=617fef2caeecf2a2864e8a0b
+Content-Type: application/json
+
+###
+
+
+###
+POST http://localhost:5000/blog/insert
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2MzU4MjA1NDZ9.vHmtwy5w2M0-EL8Y52cCYKmJB8w7XvQdTA_YRRbfwNI
+
+{
+    "title": "'Thả thính chân kinh' của tác giả best-seller Anh Khang có gì mà xôn xao giới trẻ?",
+    "introduction": "Thả thính chân kinh của Anh Khang xôn xao người hâm mộ khi chưa phát hành, để rồi khi cầm trên tay lại khiến độc giả phì cười ngay từ những trang đầu bởi những câu thả thính trắng trợn, tỏ tình lố lăng...",
+    "thumnail": "https://image.thanhnien.vn/w2048/Uploaded/2021/wpdhnwejw/2020_06_04/thathinh_sroq.jpg",
+    "content":"dfasdfs"
+}
+
+###
+GET http://localhost:5000/blog
+Content-Type: application/json
+
+
+###
+GET http://localhost:5000/account/info
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2MzU2ODk2OTN9.OnE6wgGjWdotaTpLNiedcMHsmviT1MN4nXy3DCNjQZk
+
+
+####
+DELETE  http://localhost:5000/author/delete/6181934a3d1c881ab2381ea5
+Content-Type: application/json
+
+
+###
+GET http://localhost:5000/blog/getBlog?blogId=6185ebf617ed15e7314ff0aa
+Content-Type: application/json
+
+###
+GET http://localhost:5000/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2MzU2ODk2OTN9.OnE6wgGjWdotaTpLNiedcMHsmviT1MN4nXy3DCNjQZk
+
+
+### 
+POST http://localhost:5000/blog/addComment
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2MzU2ODk2OTN9.OnE6wgGjWdotaTpLNiedcMHsmviT1MN4nXy3DCNjQZk
+
+{
+    "comment": "Sách hay và đáng đọc",
+    "blogId": "6185ebf617ed15e7314ff0aa"
+}
+
+###
+POST http://localhost:5000/comment/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTVlNTAyYzJjZGQ2ZWIzOTlmODYiLCJpYXQiOjE2MzYyMDQ2MTl9.jvhYaWfF4IBGfYgynr7UlWrmI7TTKopilE1oxtBXFnQ
+
+{
+    "objId": "61867cd517ead3ee70fae2f0",
+    "content": "Great book"
+}
+
+
+###
+GET http://localhost:5000/book/getAll
+Content-Type: application/json
+
+###
+GET http://localhost:5000/comment/all?id=6187a55fa5d4de889c9cb259
+Content-Type: application/json
+
+###
+GET http://localhost:5000/account/getAllUsers
+Content-Type: application/json
