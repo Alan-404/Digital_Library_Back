@@ -18,9 +18,12 @@ POST http://localhost:5000/account/login
 Content-Type: application/json
 
 {
-    "username": "tri",
+    "username": "alan",
     "password": "123"
 }
+
+
+
 
 ###
 GET http://localhost:5000/account/getInfor
@@ -180,6 +183,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2M
 ###
 GET http://localhost:5000/blog
 Content-Type: application/json
+
+###
+GET http://localhost:5000/blog/token
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2MzkyMDY0Njh9.l1OOu2T9yGVdCZuhPiayPXOhgM7bHY4MkJrwphIFxb8
 
 
 ###

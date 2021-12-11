@@ -78,6 +78,22 @@ class BlogController {
         }
     }
 
+
+    async getAllBlogsByToken(req, res){
+        const accountId = req.accountId;
+        var blogs = []
+        try{
+            const account = await accountModel.findById(accountId)
+            const user = await userModel.findById(account.userId)
+            blogs = await blogModel.find({userId: user._id})
+
+            return res.json({blogs})
+        }
+        catch(error){
+            return res.json({message: error.messaage})
+        }
+    }
+
 }
 
 module.exports = new BlogController;
