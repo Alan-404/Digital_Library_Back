@@ -42,6 +42,31 @@ class CommentController {
         }
     }
 
+    async editComment(req, res){
+        const {id, content} = req.body;
+        if (!content)
+            return res.json({success: false})
+        try{
+            await commentModel.findByIdAndUpdate(id, {content});
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
+    }
+
+    async deleteComment(req, res){
+        const {id} = req.query;
+
+        try{
+            await commentModel.findByIdAndDelete(id);
+            return res.json({success: true});
+        }
+        catch(error){
+            return res.json({success: false})
+        }
+    }
 
 }
 

@@ -231,6 +231,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2M
     "content": "Great book"
 }
 
+###
+PUT http://localhost:5000/comment/edit
+Content-Type: application/json
+
+{
+    "id": "618a60a7c9c164771a76b49f",
+    "content": "Test"
+}
+
 
 ###
 GET http://localhost:5000/book/getAll

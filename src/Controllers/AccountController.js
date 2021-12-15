@@ -83,6 +83,8 @@ class AccountController {
         }
     }
 
+    //change password when forgot
+
     //get infor user by access token
     async getNameUser(req, res){
         try{
@@ -95,7 +97,7 @@ class AccountController {
 
             const user = await userModel.findById(userId);
 
-            return res.json({success: true, message: 'Get username successfully' ,name: user.firstName + ' ' + user.middleName + ' ' + user.lastName, role: account.role});
+            return res.json({success: true, message: 'Get username successfully' ,accountId: account._id,name: user.firstName + ' ' + user.middleName + ' ' + user.lastName, role: account.role});
         }
         catch(error){
             return res.json({success: false, message: error.message, name: undefined});
