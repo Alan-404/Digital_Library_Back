@@ -2,10 +2,7 @@ const accountModel = require('../Models/AccountModel');
 const userModel = require('../Models/UserModel');
 const argon2 = require('argon2')
 const jwt = require('jsonwebtoken');
-var nodemailer = require('nodemailer');
-const UserController = require('./UserController');
-const AccountModel = require('../Models/AccountModel');
-const UserModel = require('../Models/UserModel');
+
 
 class AccountController {
     //insert account get from user controller
@@ -97,6 +94,13 @@ class AccountController {
 
             const user = await userModel.findById(userId);
 
+            if (user.firstName == null)
+                user.firstName = '';
+            if (user.middleName == null)
+                user.middleName = ''
+            if (user.lastName == null)
+                user.lastName = ''
+
             return res.json({success: true, message: 'Get username successfully' ,accountId: account._id,name: user.firstName + ' ' + user.middleName + ' ' + user.lastName, role: account.role});
         }
         catch(error){
@@ -174,6 +178,11 @@ class AccountController {
             return res.json({success: false, message: error.message})
         }
     }
+
+
+    
+
+    
 
 
     

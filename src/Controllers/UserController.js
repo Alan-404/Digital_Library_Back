@@ -3,7 +3,8 @@ const AccountController = require('./AccountController');
 var nodemailer = require('nodemailer');
 const {myEmail, myPassword, templateResetPassword} = require('../Common/Constants');
 const accountModel = require('../Models/AccountModel');
-
+const UserModel = require('../Models/UserModel');
+const jwt = require('jsonwebtoken');
 class UserController{
     //register user
     async registerUser(req, res){
@@ -16,13 +17,13 @@ class UserController{
         {
             const checkEmailExist = await userModel.findOne({email});
             if (checkEmailExist)
-                return res.json({success: false, message: 'Your email has been taken'});
+              return res.json({success: false, message: 'Your email has been taken'});
         }
         try{
             const newUser = new userModel({firstName, middleName, lastName, phone, email, bDate, avatar});
             const accessToken = await AccountController.insertAccount(username, password, newUser._id, role);
             if (!accessToken)
-                return res.json({success: false, message: 'Insert account fail'});
+              return res.json({success: false, message: 'Insert account fail'});
 
             await newUser.save();
 
@@ -112,6 +113,56 @@ class UserController{
         return res.json({success: false, message: error.message})
       }
     }
+
+    async registerByGoogle(req, res){
+      const {id, fullName, email, imageUrl} = req.body;
+      if (!id || !fullName || !email || !imageUrl)
+        return res.json({success: false})
+
+      try{
+        const account = await accountModel.findOne({username: id})
+        if (account)
+          return res.json({success: false})
+        
+        const newUser = new UserModel({lastName: fullName, email, avatar: imageUrl})
+        const accessToken = await AccountController.insertAccount(id, id, newUser._id, false);
+        if (!accessToken)
+          return res.json({success: false, message: 'Insert account fail'});
+        await newUser.save();
+
+        return res.json({success: true, message: 'Insert user successfully', accessToken, userId: newUser._id});
+      }
+      catch(error){
+        console.log(error.message)
+        return res.json({success: false})
+      }
+    }
+
+
+    async loginByGoogle(req, res){
+      const {email} = req.body;
+      if (!email){
+        return res.json({success: false})
+      }
+
+      try{
+        const user = await userModel.findOne({email})
+        if (!user)
+          return res.json({success: false})
+        const account = await accountModel.findOne({userId: user._id})
+        const accessToken = jwt.sign(
+          {accountId: account._id},
+          process.env.SECRET
+        )
+        
+        return res.json({success: true, accessToken})
+      }
+      catch(error){
+        console.log(error.message)
+        return res.json({success: false})
+      }
+    }
+
 }
 
 module.exports = new UserController;

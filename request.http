@@ -22,7 +22,13 @@ Content-Type: application/json
     "password": "234"
 }
 
+###
+POST http://localhost:5000/user/login-google
+Content-Type: application/json
 
+{
+    "email": "nguyenductri04042001@gmail.com"
+}
 
 
 ###
