@@ -128,6 +128,10 @@ class AccountController {
             if (!account)
                 return res.json({message: 'Invalid account'});
             const user = await userModel.findById(account.userId);
+            if (user.firstName == null)
+                user.firstName = ''
+            if (user.middleName == null)
+                user.middleName = ''
             return res.json({user, username: account.username});
         }
         catch(error){
@@ -144,15 +148,23 @@ class AccountController {
 
 
         try{
-            allAccountsAdmin = await AccountModel.find({role: true});
+            allAccountsAdmin = await accountModel.find({role: true});
             for (let ad of allAccountsAdmin){
-                const userAdmin = await UserModel.findById(ad.userId);
+                const userAdmin = await userModel.findById(ad.userId);
+                if (userAdmin.firstName == null)
+                    userAdmin.firstName = ''
+                if (userAdmin.middleName == null)
+                    userAdmin.middleName = ''
                 allUsersAdmin.push(userAdmin);
             }
 
-            allAccountsMember = await AccountModel.find({role: false});
+            allAccountsMember = await accountModel.find({role: false});
             for (let mem of allAccountsMember){
-                const userMember = await UserModel.findById(mem.userId);
+                var userMember = await userModel.findById(mem.userId);
+                if (userMember.firstName == null)
+                    userMember.firstName = ''
+                if (userMember.middleName == null)
+                    userMember.middleName = ''
                 allUsersMember.push(userMember);
             }
             
@@ -181,7 +193,24 @@ class AccountController {
 
 
     
+    async loginByFacebook(req, res){
+        const {id} = req.body;
 
+        try{
+            const account = await accountModel.findOne({username:id})
+            const accessToken = jwt.sign(
+                {accountId: account._id},
+                process.env.SECRET
+            )
+            if (!account)
+                return res.json({success: false})
+            return res.json({success: true, accessToken})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
+    }
     
 
 

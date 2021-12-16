@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "username": "alan",
-    "password": "234"
+    "password": "04042001"
 }
 
 ###
@@ -252,6 +252,10 @@ GET http://localhost:5000/book/getAll
 Content-Type: application/json
 
 ###
+GET http://localhost:5000/user
+Content-Type: application/json
+
+###
 GET http://localhost:5000/comment/all?id=6187a55fa5d4de889c9cb259
 Content-Type: application/json
 
@@ -267,3 +271,18 @@ Content-Type: application/json
     "email": "19110302@student.hcmute.edu.vn",
     "newPassword": "234"
 }
+
+###
+PUT http://localhost:5000/user/role
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2Mzk2NjIxNTh9.UFfftghBAlp7x6gqernn1r6YHFISuf4SVfQLyy0jzz4
+
+{
+    "id": "61bb26ab1c75054c20c91e84"
+}
+
+
+###
+DELETE http://localhost:5000/user/delete/?id=61b35091092cd2db9a956456
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2MTdlYTQxZmFiMTUwYzBhMDNiM2NlNGMiLCJpYXQiOjE2Mzk2NjIxNTh9.UFfftghBAlp7x6gqernn1r6YHFISuf4SVfQLyy0jzz4

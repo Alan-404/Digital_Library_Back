@@ -86,25 +86,35 @@ class UserController{
       }
     }
 
-    async giveAdmin(req, res){
-      const {id} = req.query;
+    async changeRole(req, res){
+      const {id} = req.body;
 
       try{
-        await userModel.findByIdAndUpdate(id, {role: true});
+        const user = await userModel.findById(id)
+        const account = await accountModel.findOne({userId: user._id})
+        const role = !account.role
+        await accountModel.findByIdAndUpdate(account._id, {role})
 
         return res.json({success: true})
       }
       catch(error){
-        return res.json({success: false, message: error.message})
+        console.log(error.message)
+        return res.json({success: false})
       }
     }
 
 
     async deleteUser(req, res){
       const {id} = req.query;
-
+      if (!id)
+        return res.json({success: false})
+      const accountId = req.accountId;
 
       try{
+        const accountAdmin = await accountModel.findById(accountId)
+        if (!accountAdmin.role)
+          return res.json({success: false})
+        await accountModel.findOneAndRemove({userId: id})
         await userModel.findByIdAndRemove(id);
 
         return res.json({success: true})
@@ -123,7 +133,9 @@ class UserController{
         const account = await accountModel.findOne({username: id})
         if (account)
           return res.json({success: false})
-        
+        const user  = await userModel.findOne({email})
+        if (user)
+          return res.json({success: false})
         const newUser = new UserModel({lastName: fullName, email, avatar: imageUrl})
         const accessToken = await AccountController.insertAccount(id, id, newUser._id, false);
         if (!accessToken)
@@ -156,6 +168,29 @@ class UserController{
         )
         
         return res.json({success: true, accessToken})
+      }
+      catch(error){
+        console.log(error.message)
+        return res.json({success: false})
+      }
+    }
+
+
+    async registerByFacebook(req, res){
+      const {name, id, avatar} = req.body;
+
+      try{
+        const account = await accountModel.findOne({username: id})
+        if (account)
+          return res.json({success: false})
+        const newUser = new UserModel({lastName: name, avatar})
+        const accessToken = await AccountController.insertAccount(id, id, newUser._id, false);
+        if (!accessToken)
+          return res.json({success: false, message: 'Insert account fail'});
+        await newUser.save();
+
+        return res.json({success: true, message: 'Insert user successfully', accessToken, userId: newUser._id});
+
       }
       catch(error){
         console.log(error.message)

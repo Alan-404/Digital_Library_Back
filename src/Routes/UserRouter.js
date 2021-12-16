@@ -5,10 +5,11 @@ const verifyToken = require('../Middleware/Auth')
 
 router.post('/insert', UserController.registerUser);
 router.post('/mail',UserController.sendMail);
-router.put('/giveAdmin', UserController.giveAdmin);
-router.delete('/delete/:id', UserController.deleteUser);
+router.put('/role', verifyToken, UserController.changeRole)
+router.delete('/delete*',verifyToken, UserController.deleteUser);
 router.post('/register-google', UserController.registerByGoogle)
 router.post('/login-google', UserController.loginByGoogle)
+router.post('/register-facebook', UserController.registerByFacebook);
 router.get('/', verifyToken,  UserController.getAllUsers);
 
 module.exports = router;
