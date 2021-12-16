@@ -8,6 +8,7 @@ router.put('/change',verifyToken ,AccountController.changePassword);
 router.get('/getInfor', verifyToken, AccountController.getNameUser);
 router.get('/getRole', verifyToken, AccountController.checkRole);
 router.get('/info', verifyToken, AccountController.getInfoUser);
+router.put('/reset-password', AccountController.resetPassword)
 router.get('/getAllUsers', AccountController.getAllUserByRole)
 
 module.exports = router;

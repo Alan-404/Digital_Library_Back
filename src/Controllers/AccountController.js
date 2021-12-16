@@ -160,14 +160,18 @@ class AccountController {
     }
 
     async resetPassword(req, res){
-        const {newPassword, rePass} = req.body;
-        if (newPassword != rePass)
-            return res.json({success: false, message: 'Your password is not matched'})
+        const {email, newPassword} = req.body;
         try{
-            
+            const user = await userModel.findOne({email})
+            if (!user)
+                return res.json({success: false})
+            const hashPassword = await argon2.hash(newPassword)
+            await accountModel.findOneAndUpdate({userId: user._id}, {password: hashPassword})
+
+            return res.json({success: true})
         }
         catch(error){
-
+            return res.json({success: false, message: error.message})
         }
     }
 

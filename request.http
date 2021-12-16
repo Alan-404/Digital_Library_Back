@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "username": "alan",
-    "password": "123"
+    "password": "234"
 }
 
 
@@ -252,3 +252,12 @@ Content-Type: application/json
 ###
 GET http://localhost:5000/account/getAllUsers
 Content-Type: application/json
+
+###
+PUT http://localhost:5000/account/reset-password
+Content-Type: application/json
+
+{
+    "email": "19110302@student.hcmute.edu.vn",
+    "newPassword": "234"
+}
