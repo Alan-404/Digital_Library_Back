@@ -76,6 +76,23 @@ class AuthorController {
             return res.json({success: false, message: error.message})
         }
     }
+
+    async editInfor(req,res){
+        const {_id, name, description, imageLink} = req.body;
+
+        try{
+            const author = await authorModel.findById(_id)
+            if (!author)
+                return res.json({success: false})
+            await authorModel.findByIdAndUpdate(_id, {name, description, imageLink})
+
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success:false})
+        }
+    }
 }
 
 module.exports = new AuthorController;

@@ -94,6 +94,20 @@ class BlogController {
         }
     }
 
+    async deleteBlog(req, res){
+        const {id} = req.query
+        try{
+            
+            await blogModel.findByIdAndDelete(id)
+            return res.json({success: true})
+            
+        }
+        catch(error){
+            console.log(error)
+            return res.json({success: false});
+        }
+    }
+
 }
 
 module.exports = new BlogController;

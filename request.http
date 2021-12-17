@@ -134,6 +134,10 @@ Content-Type: application/json
 
 
 ###
+GET http://localhost:5000/book/show-all
+Content-Type: application/json
+
+###
 GET http://localhost:5000/author/getAuthor?authorId=617961d82840693e4b231ef7
 Content-Type: application/json
 
@@ -279,6 +283,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiI2M
 
 {
     "id": "61bb26ab1c75054c20c91e84"
+}
+
+###
+PUT http://localhost:5000/category/change-image
+Content-Type: application/json
+
+{
+    "id": "61bc30b1e7d4df7eef2fbd6f",
+    "imageLink":"123"
 }
 
 

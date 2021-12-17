@@ -198,6 +198,43 @@ class UserController{
       }
     }
 
+
+    async editInfoUser(req, res){
+      const {firstName, middleName, lastName, phone, bDate, maxim, id} = req.body;
+      try{
+        const user = await UserModel.findById(id)
+        if (!user)
+          return res.json({success: false})
+        
+        await userModel.findByIdAndUpdate(id, {firstName, middleName, lastName, phone, bDate, maxim})
+
+        return res.json({success: true})
+      }
+      catch(error){
+        console.log(error.message)
+        return res.json({success: false})
+      } 
+    }
+
+
+    async changeAvatar(req, res){
+      const {id, avatar} = req.body
+
+      try{
+        const user = await userModel.findById(id)
+
+        if (!user)
+          return res.json({success: false})
+        await userModel.findByIdAndUpdate(id, {avatar});
+
+        return res.json({success: true})
+      }
+      catch(error){
+        console.log(error.message)
+        return res.json({success: false})
+      }
+    }
+
 }
 
 module.exports = new UserController;

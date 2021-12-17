@@ -52,6 +52,57 @@ class CategoryController{
 
 
     //
+
+    async deleteCategory(req, res){
+        const {id} = req.query;
+        if (!id)    
+            return res.json({success: false})
+        try{
+            await categoryModel.findByIdAndDelete(id)
+
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
+    }
+
+    async editInfor(req, res){
+        const {id, name, description} = req.body;
+
+        try{
+            const category = await categoryModel.findById(id)
+            if (!category)
+                return res.json({success: false})
+            await categoryModel.findByIdAndUpdate(id, {name, description});
+
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
+    }
+
+
+    async changeImage(req, res){
+        const {id, imageLink}=  req.body
+
+        try{
+            const category = await categoryModel.findById(id)
+            if(!category)
+                return res.json({success: false})
+
+            await categoryModel.findByIdAndUpdate(id, {imageLink})
+
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
+    }
     
 }
 

@@ -12,7 +12,7 @@ class BookController {
             return res.json({success: false, message: 'Missing information'});
 
         try{
-            const authorId = await AuthorController.findAuthor(author);
+            /* const authorId = await AuthorController.findAuthor(author);
 
             if (!authorId)
                 return res.json({success: false, messgae: 'Invalid author'});
@@ -20,9 +20,9 @@ class BookController {
             const categoryId = await CategoryController.findIdCategoryByName(category);
 
             if (!categoryId)
-                return res.json({success: false, messgae: 'Invalid category'});
+                return res.json({success: false, messgae: 'Invalid category'}); */
             
-            const newBook = new bookModel({name, authorId, imageLink, linkPdf,description, categoryId});
+            const newBook = new bookModel({name, authorId: author, imageLink, linkPdf,description, categoryId: category});
 
             await newBook.save();
 
@@ -128,6 +128,70 @@ class BookController {
         }
         catch(error){   
             return res.json({message: error.message})
+        }
+    }
+
+    async showAll(req, res){
+        var books = []
+        var categories = []
+        var authors = []
+        try{
+            books = await bookModel.find({})
+
+            for (let book of books){
+                var category = await categoryModel.findById(book.categoryId)
+                categories.push(category.name)
+                var author = await authorModel.findById(book.authorId)
+                authors.push(author.name)
+            }
+
+            return res.json({books, categories, authors})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
+    }
+
+    async changeImage(req ,res){
+        const {id, imageLink} = req.body;
+
+        try{
+            await bookModel.findByIdAndUpdate(id, {imageLink})
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
+    }
+
+    async editInfo(req, res){
+        const {_id, authorId, description, categoryId, linkPdf} = req.body;
+        try{
+            const book = await bookModel.findById(_id)
+            if (!book)
+                return res.json({success: false})
+            await bookModel.findByIdAndUpdate(_id, {authorId ,description, categoryId, linkPdf})
+
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
+    }
+
+    async deleteBook(req, res){
+        const {id} = req.query;
+
+        try{
+            await bookModel.findByIdAndDelete(id);
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
         }
     }
 }

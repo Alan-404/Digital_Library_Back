@@ -9,6 +9,8 @@ router.put('/role', verifyToken, UserController.changeRole)
 router.delete('/delete*',verifyToken, UserController.deleteUser);
 router.post('/register-google', UserController.registerByGoogle)
 router.post('/login-google', UserController.loginByGoogle)
+router.put('/edit', UserController.editInfoUser);
+router.put('/change-avatar', UserController.changeAvatar)
 router.post('/register-facebook', UserController.registerByFacebook);
 router.get('/', verifyToken,  UserController.getAllUsers);
 
