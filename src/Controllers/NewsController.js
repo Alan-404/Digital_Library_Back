@@ -45,8 +45,21 @@ class NewsController{
         }
     }
 
-    async getTest(req, res){
-        console.log(req.params);
+    async deleteNews(req, res){
+        const {id} = req.query;
+
+        try{
+            const news = await newsModel.findById(id)
+            if (!news)
+                return res.json({success: false})
+            await newsModel.findByIdAndDelete(id)
+
+            return res.json({success: true})
+        }
+        catch(error){
+            console.log(error.message)
+            return res.json({success: false})
+        }
     }
 }
 
