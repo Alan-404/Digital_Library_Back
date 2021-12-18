@@ -1,8 +1,7 @@
 const bookModel = require('../Models/BookModel');
-const AuthorController = require('./AuthorController');
-const CategoryController = require('./CategoryController');
 const categoryModel = require('../Models/CategoryModel');
 const authorModel = require('../Models/AuthorModel');
+
 class BookController {
     //insert book
     async insertBook(req, res){
@@ -12,15 +11,6 @@ class BookController {
             return res.json({success: false, message: 'Missing information'});
 
         try{
-            /* const authorId = await AuthorController.findAuthor(author);
-
-            if (!authorId)
-                return res.json({success: false, messgae: 'Invalid author'});
-
-            const categoryId = await CategoryController.findIdCategoryByName(category);
-
-            if (!categoryId)
-                return res.json({success: false, messgae: 'Invalid category'}); */
             
             const newBook = new bookModel({name, authorId: author, imageLink, linkPdf,description, categoryId: category});
 
