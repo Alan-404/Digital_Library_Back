@@ -29,6 +29,10 @@ class BlogController {
             const blogs = await blogModel.find({});
             for (let blog of blogs){
                 const user = await userModel.findOne({_id: blog.userId});
+                if (!user.firstName)
+                    user.firstName = ''
+                if (!user.middleName)
+                    user.middleName = ''
                 users.push(user.firstName + ' ' + user.middleName + ' ' + user.lastName);
             }
             return res.json({blogs, users});
@@ -52,6 +56,10 @@ class BlogController {
                 const objUser = {avatar: userComment.avatar, name: userComment.firstName + ' ' + userComment.middleName + ' ' + userComment.lastName}
                 commenter.push(objUser);
             }
+            if (!user.firstName)
+                    user.firstName = ''
+            if (!user.middleName)
+                user.middleName = ''
             return res.json({success: true, blog, writer: user.firstName + ' ' + user.middleName + ' ' + user.lastName, commenter});
         }
         catch(error){
